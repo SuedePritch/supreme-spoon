@@ -31,9 +31,10 @@ textarea {
 
 .time-block {
   padding: 1rem;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
   height: 50px;
   text-align: left;
-  border-radius: 15px;
 }
 
 .row {

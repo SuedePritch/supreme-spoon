@@ -51,9 +51,7 @@ function createAllTimeBlocks() {
 //clears pastpresentfuture classes
 //sets class based on relation to current time
 function updatePastPresentFuture(i){
-    document.querySelector(`#timeblock${i}`).classList.remove('present')
-    document.querySelector(`#timeblock${i}`).classList.remove('future')
-    document.querySelector(`#timeblock${i}`).classList.remove('past')
+    document.querySelector(`#timeblock${i}`).classList.remove('present','future','past')
     if(now.$H == `${timeBlockTimes[i]}`){
         document.querySelector(`#timeblock${i}`).classList.add('present')
     }else if(now.$H <= `${timeBlockTimes[i]}`){
