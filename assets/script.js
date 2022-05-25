@@ -39,6 +39,7 @@ function createAllTimeBlocks() {
         var timeBlock = $("<div>");
         timeBlock.addClass("time-block mb-1");
         timeBlock.attr('id',`timeblock${i}`)
+        timeBlock.attr('data-time',`${i}`)
         $('#timeBlockContainer').append(timeBlock);
         document.querySelector(`#timeblock${i}`).textContent = `${timeBlockTimes[i]}`
         updatePastPresentFuture(i);
