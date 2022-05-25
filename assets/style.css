@@ -1,3 +1,8 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
@@ -10,7 +15,6 @@ textarea {
   resize: none;
   color: #000000;
   border-left: 1px solid black;
-  padding: 10px;
 }
 
 .jumbotron {
@@ -26,7 +30,10 @@ textarea {
 }
 
 .time-block {
-  text-align: center;
+  padding: 1rem;
+  height: 150px;
+  background-color: #77dd77;
+  text-align: left;
   border-radius: 15px;
 }
 
