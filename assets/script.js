@@ -161,7 +161,7 @@ function clearTextFromModal(){
     modalEventHeadingEl.textContent = 'Add New Event'
     modalDescriptionEl.setAttribute('placeholder', "Description")
     modalTitleEl.setAttribute('placeholder', 'Title')
-    modalTitleEl.value = ''
+    modalTitleEl.value = null
     modalDescriptionEl.textContent = ''
 
 }
