@@ -10,15 +10,15 @@ var closeModalButtonEl = document.getElementById('close-event-container')
 const now = dayjs()
 currentDayEL.textContent = now.format("dddd MMM DD YYYY")
 timeBlockTimes =[
-    // dayjs().hour(0).format("H"),
-    // dayjs().hour(1).format("H"),
-    // dayjs().hour(2).format("H"),
-    // dayjs().hour(3).format("H"),
-    // dayjs().hour(4).format("H"),
-    // dayjs().hour(5).format("H"),
-    // dayjs().hour(6).format("H"),
-    // dayjs().hour(7).format("H"),
-    // dayjs().hour(8).format("H"),
+    dayjs().hour(0).format("H"),
+    dayjs().hour(1).format("H"),
+    dayjs().hour(2).format("H"),
+    dayjs().hour(3).format("H"),
+    dayjs().hour(4).format("H"),
+    dayjs().hour(5).format("H"),
+    dayjs().hour(6).format("H"),
+    dayjs().hour(7).format("H"),
+    dayjs().hour(8).format("H"),
 
     dayjs().hour(9).format("H"),
     dayjs().hour(10).format("H"),
@@ -62,7 +62,7 @@ function createAllTimeBlocks() {
         timeBlock.append(hourBlock)
         timeBlock.append(eventBlock)
         document.querySelector(`#hour-block${i}`).textContent = `${timeBlockTimes[i]}:00`
-        document.querySelector(`#event-block${i}`).textContent = 'Open Time Slot'
+        document.querySelector(`#event-block${i}`).textContent = ''
 
         updatePastPresentFuture(i);
         
@@ -95,12 +95,11 @@ timeBlockContainerEl.addEventListener('click', function(event){
 })
 
 function createNewEvent(newEventTitleText, newEventDescriptionText){
-    console.log(eventBlockId)
-    localStorage.setItem(`${eventBlockId}`, 
-        JSON.stringify({
-            title:`${newEventTitleText}`, 
-            description:`${newEventDescriptionText}`}))
-    // localStorage.setItem('event', `${newEventTitleText} ${newEventDescriptionText}`)
+    localStorage.setItem(`${eventBlockId}`, JSON.stringify({title:`${newEventTitleText}`, description:`${newEventDescriptionText}`}))
+    var currentEventBlock = document.querySelector(`#${eventBlockId}`)
+    currentEventBlock.textContent = `${newEventTitleText}`
+
+
 }
 
 
@@ -108,6 +107,7 @@ saveEventButtonEl.addEventListener('click', function(){
     var newEventTitleText = $('#newEventTitle').val()
     var newEventDescriptionText = $('#newEventDescription').val()
     createNewEvent(newEventTitleText, newEventDescriptionText)
+    modalEl.setAttribute('style', "display:none")
 })
 
 

@@ -17,6 +17,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   line-height: 1;
+  overflow-x: hidden;
 }
 
 .current-day-container{
@@ -26,6 +27,7 @@ body {
   background-color: var(--clr-accent);
   color: var(--clr-light);
   border-radius: 0;
+  width: 100vw;
 }
 .scheduleContainer{
   margin:0;
