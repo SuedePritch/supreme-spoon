@@ -5,7 +5,7 @@
   --clr-accent:hsl(245, 50%, 40%);
   --clr-dark:hsla(0, 0%, 0%, 0.85);
   --clr-light:hsla(0, 0%, 100%, 0.90);
-  --clr-faded-text:hsla(0, 0%, 0%, 0.3);
+  --clr-faded-text:hsla(0, 0%, 0%, 0.6);
 }
 
 *{
@@ -29,15 +29,10 @@ body {
   border-radius: 0;
   width: 100vw;
 }
-.scheduleContainer{
-  margin:0;
-  padding:0;
-  width:100vw;
-}
+
 .time-block {
   position: relative;
   display: flex;
-  /* justify-content: space-between; */
   align-items: flex-start;
   margin:0;
   border-bottom: 3px solid var(--clr-dark);
@@ -50,34 +45,46 @@ body {
   align-items: center;
   height:100%;
   width:10vw;
+  min-width: 50px;
   padding: 1rem;
   background-color: black;
+  color: var(--clr-light);
   box-shadow: inset 0 0 5px 1px var(--clr-light);
   text-align: center;
 }
 .event-block{
-  padding:0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  align-items: baseline;
+  padding:0.8rem;
+  width:100%;
+  height: 100%;
   /* Click through text box onto underlying li for adding new appointment*/
   pointer-events: none;
-  color:var(--clr-faded-text);
+  color: var(--clr-dark);
+}
+.event-block-title{
+  padding-bottom: 0.5rem;
+}
+.event-block-description{
+  color: var(--clr-faded-text);
 }
 
 .past {
-  height: 40px;
+  height: 80px;
   background-color: var(--clr-past);
-  color: var(--clr-light);
 }
 
 .present {
-  height:120px;
+  height:130px;
   background-color: var(--clr-present);
-  color: var(--clr-light);
 }
 
 .future {
-  height:120px;
+  height:130px;
   background-color: var(--clr-future);
-  color: var(--clr-light);
 }
 
 
@@ -103,10 +110,11 @@ body {
   display: flex;
   background-color: var(--clr-past);
   margin: 15% auto;
-  padding:4rem;
+  padding:3rem;
   border: 1px solid var(--clr-dark);
   border-radius: 20px;
   width: 80%;
+  max-width: 600px;
 }
 #newEvent{
   display: flex;
@@ -124,7 +132,7 @@ body {
   padding:1.2rem;
   width: fit-content;
 
-  font-size: 2em;
+  font-size: clamp(1.5em, 4vw, 3em);
   color: var(--clr-light);
   background-color: var(--clr-dark);
 
@@ -163,13 +171,6 @@ body {
 #close-event > *{
   fill:var(--clr-light);
 }
-
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
 /* Save Button */
 #save-event-container{
   position: absolute;
@@ -182,7 +183,6 @@ body {
   width: fit-content;
   border-radius: 50%;
 }
-
 #save-event{
   padding:0.25rem;
   height:40px;

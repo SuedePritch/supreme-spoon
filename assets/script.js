@@ -1,5 +1,8 @@
 var currentDayEL = document.getElementById('currentDay')
 var timeBlockContainerEl = document.getElementById('timeBlockContainer')
+var modalEventHeadingEl = document.getElementById('new-event-heading')
+var modalTitleEl = document.getElementById('newEventTitle')
+var modalDescriptionEl = document.getElementById('newEventDescription')
 var timeBlockEl;
 let eventBlockId;
 var saveEventButtonEl = document.getElementById('save-event')
@@ -10,15 +13,15 @@ var closeModalButtonEl = document.getElementById('close-event-container')
 const now = dayjs()
 currentDayEL.textContent = now.format("dddd MMM DD YYYY")
 timeBlockTimes =[
-    // dayjs().hour(0).format("H"),
-    // dayjs().hour(1).format("H"),
-    // dayjs().hour(2).format("H"),
-    // dayjs().hour(3).format("H"),
-    // dayjs().hour(4).format("H"),
-    // dayjs().hour(5).format("H"),
-    // dayjs().hour(6).format("H"),
-    // dayjs().hour(7).format("H"),
-    // dayjs().hour(8).format("H"),
+    dayjs().hour(0).format("H"),
+    dayjs().hour(1).format("H"),
+    dayjs().hour(2).format("H"),
+    dayjs().hour(3).format("H"),
+    dayjs().hour(4).format("H"),
+    dayjs().hour(5).format("H"),
+    dayjs().hour(6).format("H"),
+    dayjs().hour(7).format("H"),
+    dayjs().hour(8).format("H"),
 
     dayjs().hour(9).format("H"),
     dayjs().hour(10).format("H"),
@@ -29,13 +32,13 @@ timeBlockTimes =[
     dayjs().hour(15).format("H"),
     dayjs().hour(16).format("H"),
     
-    // dayjs().hour(17).format("H"),
-    // dayjs().hour(18).format("H"),
-    // dayjs().hour(19).format("H"),
-    // dayjs().hour(20).format("H"),
-    // dayjs().hour(21).format("H"),
-    // dayjs().hour(22).format("H"),
-    // dayjs().hour(23).format("H")
+    dayjs().hour(17).format("H"),
+    dayjs().hour(18).format("H"),
+    dayjs().hour(19).format("H"),
+    dayjs().hour(20).format("H"),
+    dayjs().hour(21).format("H"),
+    dayjs().hour(22).format("H"),
+    dayjs().hour(23).format("H")
 ]
 //Create all time blocks
 //each timeBlock contains two sections
@@ -74,12 +77,12 @@ function createAllTimeBlocks() {
         eventBlock.append(eventBlockTitle, eventBlockDescription); 
         
 
-        document.querySelector(`#hour-block${i}`).textContent = `${timeBlockTimes[i]}`
+        document.querySelector(`#hour-block${i}`).textContent = `${timeBlockTimes[i]}:00`
 
         updatePastPresentFuture(i);
         
     }
-    return timeBlockEl = document.querySelectorAll('.time-block')
+    
 }
 
 //uses iterator variable in createAllTimeBlocks
@@ -96,22 +99,9 @@ function updatePastPresentFuture(i){
     }
 }
 
-//create new event by clicking a time slot
-timeBlockContainerEl.addEventListener('click', function(event){
-    var element = $(event.target)
-    var timeBlockId= element[0]
-    var eventBlockClass = timeBlockId.querySelector('.event-block')
-    eventBlockId = eventBlockClass.id
-    // console.log(eventBlockId);
-    modalEl.setAttribute('style', 'display:block')
-})
 
-function createNewEvent(newEventTitleText, newEventDescriptionText){
-    localStorage.setItem(`${eventBlockId}`, JSON.stringify({title:`${newEventTitleText}`, description:`${newEventDescriptionText}`}))
-    var currentEventBlock = document.querySelector(`#${eventBlockId}`)
-    currentEventBlock.textContent = `${newEventTitleText}`
-}
-
+//displays events from localstorage into specific timeslots
+//skips timeslots with no data
 function getEventsFromLocalAndUpdate(){
     for(i=0; i < 24; i++){
         let eventFromLocal = JSON.parse(localStorage.getItem(`event-block${i}`))
@@ -122,12 +112,61 @@ function getEventsFromLocalAndUpdate(){
             document.getElementById(`event-block-description${i}`).textContent = eventFromLocalDescriptionText
         }
         
-
+        
         
     }
 }
 
+//takes in title and description input from modal at saveEventButton
+//adds to local storage
+//updates display
+function createNewEvent(newEventTitleText, newEventDescriptionText){
+    localStorage.setItem(`${eventBlockId}`, JSON.stringify({title:`${newEventTitleText}`, description:`${newEventDescriptionText}`}))
+    getEventsFromLocalAndUpdate();
+}
 
+//open modal by clicking a time slot
+//stores which time slot was clicked in eventBlockId
+timeBlockContainerEl.addEventListener('click', function(event){
+    clearTextFromModal();
+    var element = $(event.target)
+    var timeBlockId= element[0]
+    var eventBlockClass = timeBlockId.querySelector('.event-block')
+    eventBlockId = eventBlockClass.id
+    loadCurrentEventTextIntoModal();
+    modalEl.setAttribute('style', 'display:block')
+})
+//loads data into modal 'edit'
+//helper grabs index number from eventBlock
+//takes number from "event-block12" so it can be used as index
+function loadCurrentEventTextIntoModal(){
+    var loadTextIntoModalHelper = eventBlockId.slice(11,13)
+    var modalEventTitleTextEl = document.getElementById(`event-block-title${loadTextIntoModalHelper}`)
+    var modalTitleText = modalEventTitleTextEl.innerHTML
+    var modalEventDescriptionTextEl = document.getElementById(`event-block-description${loadTextIntoModalHelper}`)
+    var modalDescriptionText = modalEventDescriptionTextEl.innerHTML
+    
+    if(modalTitleText || modalDescriptionText){
+        modalEventHeadingEl.textContent = 'Edit Event'
+        modalTitleEl.value = modalTitleText
+        modalDescriptionEl.removeAttribute('placeholder')
+        modalDescriptionEl.textContent = modalDescriptionText;
+    }else{
+        clearTextFromModal();
+
+    }
+}
+
+function clearTextFromModal(){
+    modalEventHeadingEl.textContent = 'Add New Event'
+    modalDescriptionEl.setAttribute('placeholder', "Description")
+    modalTitleEl.setAttribute('placeholder', 'Title')
+    modalTitleEl.textContent = null
+    modalDescriptionEl.textContent = null
+
+}
+
+//on add event button retrieves text content and passes it to createNewEvent()
 saveEventButtonEl.addEventListener('click', function(){
     var newEventTitleText = $('#newEventTitle').val()
     var newEventDescriptionText = $('#newEventDescription').val()
@@ -135,16 +174,10 @@ saveEventButtonEl.addEventListener('click', function(){
     modalEl.setAttribute('style', "display:none")
 })
 
-
-
-
 //Close modal with x
 closeModalButtonEl.addEventListener('click',  function(){
     modalEl.setAttribute('style', "display:none")
 })
-
-
-
 //Close modal with "off" click
 window.addEventListener('click', function(event){
     if(event.target == modalEl){
