@@ -2,7 +2,8 @@
   --clr-past:hsl(0, 0%, 83%);
   --clr-present:hsl(3, 100%, 69%);
   --clr-future:hsl(120, 60%, 67%);
-  --clr-dark:hsla(0, 0%, 0%, 0.8);
+  --clr-accent:hsl(245, 50%, 40%);
+  --clr-dark:hsla(0, 0%, 0%, 0.85);
   --clr-light:hsla(0, 0%, 100%, 0.90);
   --clr-faded-text:hsla(0, 0%, 0%, 0.3);
 }
@@ -22,8 +23,8 @@ body {
   padding:1rem;
   font-size: 2em;
   text-align: center;
-  background-color: var(--clr-future);
-  color: var(--clr-dark);
+  background-color: var(--clr-accent);
+  color: var(--clr-light);
   border-radius: 0;
 }
 .scheduleContainer{
@@ -60,7 +61,7 @@ body {
 }
 
 .past {
-  height: 60px;
+  height: 40px;
   background-color: var(--clr-past);
   color: var(--clr-light);
 }
@@ -99,10 +100,11 @@ body {
   position: relative;
   display: flex;
   background-color: var(--clr-past);
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding:4rem;
   border: 1px solid var(--clr-dark);
-  width: 80%; /* Could be more or less, depending on screen size */
+  border-radius: 20px;
+  width: 80%;
 }
 #newEvent{
   display: flex;
@@ -110,7 +112,23 @@ body {
   width: 80vw;
 }
 #new-event-heading{
-  padding-bottom:1rem;
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  transform: translateY(-50%);
+
+  margin:0 auto;
+  padding:1.2rem;
+  width: fit-content;
+
+  font-size: 2em;
+  color: var(--clr-light);
+  background-color: var(--clr-dark);
+
+
+  border-radius: 200px;
+  border:6px solid var(--clr-accent);
 }
 #newEventTitle{
   padding:0.5rem;
@@ -126,18 +144,19 @@ body {
 #close-event-container{
   position: absolute;
   left:0;
-  top:0;
-  transform: translate(-30%,-30%) rotate(22deg);
-  background-color: var(--clr-dark);
-  border:6px solid var(--clr-present);
+  bottom:0;
+  transform: translate(-30%,30%) rotate(45deg);
+
   padding:1.2rem;
   width: fit-content;
+  
+  background-color: var(--clr-dark);
+  border:6px solid var(--clr-present);
   border-radius: 50%;
 }
 #close-event{
   padding:0.25rem;
   height:40px;
-  transform: rotate(22deg);
 }
 #close-event > *{
   fill:var(--clr-light);

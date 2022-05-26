@@ -1,9 +1,10 @@
 var currentDayEL = document.getElementById('currentDay')
 var timeBlockContainerEl = document.getElementById('timeBlockContainer')
 var timeBlockEl;
+let eventBlockId;
+var saveEventButtonEl = document.getElementById('save-event')
 var modalEl = document.getElementById('myModal')
 var closeModalButtonEl = document.getElementById('close-event-container')
-
 //date in main title
 //full 24 hours for testing
 const now = dayjs()
@@ -83,18 +84,41 @@ function updatePastPresentFuture(i){
     }
 }
 
+//create new event by clicking a time slot
 timeBlockContainerEl.addEventListener('click', function(event){
     var element = $(event.target)
     var timeBlockId= element[0]
-    var eventBlockId = timeBlockId.querySelector('.event-block')
-    console.log(eventBlockId)
+    var eventBlockClass = timeBlockId.querySelector('.event-block')
+    eventBlockId = eventBlockClass.id
+    console.log(eventBlockId);
     modalEl.setAttribute('style', 'display:block')
-
 })
+
+function createNewEvent(newEventTitleText, newEventDescriptionText){
+    console.log(eventBlockId)
+    localStorage.setItem(`${eventBlockId}`, 
+        JSON.stringify({
+            title:`${newEventTitleText}`, 
+            description:`${newEventDescriptionText}`}))
+    // localStorage.setItem('event', `${newEventTitleText} ${newEventDescriptionText}`)
+}
+
+
+saveEventButtonEl.addEventListener('click', function(){
+    var newEventTitleText = $('#newEventTitle').val()
+    var newEventDescriptionText = $('#newEventDescription').val()
+    createNewEvent(newEventTitleText, newEventDescriptionText)
+})
+
+
+
 //Close modal with x
 closeModalButtonEl.addEventListener('click',  function(){
     modalEl.setAttribute('style', "display:none")
 })
+
+
+
 //Close modal with "off" click
 window.addEventListener('click', function(event){
     if(event.target == modalEl){
