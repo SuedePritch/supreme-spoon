@@ -44,9 +44,9 @@ timeBlockTimes =[
 //Set time for each section
 function createAllTimeBlocks() {
     for (var i = 0; i < timeBlockTimes.length; i++) {
-        var timeBlock = $("<div>");
-        var hourBlock = $("<div>");
-        var eventBlock = $("<div>");
+        var timeBlock = $("<ul>");
+        var hourBlock = $("<li>");
+        var eventBlock = $("<li>");
         var eventBlockTitle = $("<h2>");
         var eventBlockDescription = $("<p>");
 
@@ -62,21 +62,20 @@ function createAllTimeBlocks() {
 
         eventBlockTitle.addClass('event-block-title')
         eventBlockTitle.attr('id', `event-block-title${i}`)
-        eventBlockTitle.text('')
+
         eventBlockDescription.addClass('event-block-description')
         eventBlockDescription.attr('id', `event-block-description${i}`)
-        eventBlockDescription.text('')
+
 
         
 
         $('#timeBlockContainer').append(timeBlock);
         timeBlock.append(hourBlock, eventBlock)
-        timeBlock.append(eventBlockTitle, eventBlockDescription); 
-        
+        eventBlock.append(eventBlockTitle, eventBlockDescription); 
         
 
         document.querySelector(`#hour-block${i}`).textContent = `${timeBlockTimes[i]}`
-        document.querySelector(`#event-block${i}`).textContent = ''
+
         updatePastPresentFuture(i);
         
     }
@@ -103,7 +102,7 @@ timeBlockContainerEl.addEventListener('click', function(event){
     var timeBlockId= element[0]
     var eventBlockClass = timeBlockId.querySelector('.event-block')
     eventBlockId = eventBlockClass.id
-    console.log(eventBlockId);
+    // console.log(eventBlockId);
     modalEl.setAttribute('style', 'display:block')
 })
 
@@ -116,13 +115,12 @@ function createNewEvent(newEventTitleText, newEventDescriptionText){
 function getEventsFromLocalAndUpdate(){
     for(i=0; i < 24; i++){
         let eventFromLocal = JSON.parse(localStorage.getItem(`event-block${i}`))
-        console.log(eventFromLocal);
-        // let eventFromLocalTitleText = eventFromLocal.title
-        // let eventFromLocalDescriptionText = eventFromLocal.description
-
-        // var tempEventTitleEl = document.getElementById(`event-block${i}`)
-        // tempEventTitleEl.children('#event-block-title').textContent = eventFromLocalTitleText
-        // document.getElementById(`event-block${i}`).textContent = eventFromLocalDescriptionText
+        if(eventFromLocal){
+            let eventFromLocalTitleText = eventFromLocal.title
+            let eventFromLocalDescriptionText = eventFromLocal.description
+            document.getElementById(`event-block-title${i}`).textContent = eventFromLocalTitleText
+            document.getElementById(`event-block-description${i}`).textContent = eventFromLocalDescriptionText
+        }
         
 
         
