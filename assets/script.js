@@ -2,12 +2,12 @@ var currentDayEL = document.getElementById('currentDay')
 var timeBlockContainerEl = document.getElementById('timeBlockContainer')
 var timeBlockEl;
 var modalEl = document.getElementById('myModal')
-var closeModalButtonEl = document.getElementById('close')
+var closeModalButtonEl = document.getElementById('close-event-container')
 
 //date in main title
 //full 24 hours for testing
 const now = dayjs()
-currentDayEL.textContent = now.format("MMM DD YYYY")
+currentDayEL.textContent = now.format("dddd MMM DD YYYY")
 timeBlockTimes =[
     // dayjs().hour(0).format("H"),
     // dayjs().hour(1).format("H"),
@@ -46,8 +46,6 @@ function createAllTimeBlocks() {
         var timeBlock = $("<ul>");
         var hourBlock = $("<li>");
         var eventBlock = $("<li>");
-        var saveButtonBlock = $('<li>')
-        var saveButton = $('<img src="./assets/save.svg" height="25px">')
 
         timeBlock.addClass("time-block");
         timeBlock.attr('id',`timeblock${i}`)
@@ -63,7 +61,7 @@ function createAllTimeBlocks() {
         timeBlock.append(hourBlock)
         timeBlock.append(eventBlock)
         document.querySelector(`#hour-block${i}`).textContent = `${timeBlockTimes[i]}:00`
-        document.querySelector(`#event-block${i}`).textContent = 'new event'
+        document.querySelector(`#event-block${i}`).textContent = 'Open Time Slot'
 
         updatePastPresentFuture(i);
         
@@ -93,17 +91,16 @@ timeBlockContainerEl.addEventListener('click', function(event){
     modalEl.setAttribute('style', 'display:block')
 
 })
-
+//Close modal with x
 closeModalButtonEl.addEventListener('click',  function(){
     modalEl.setAttribute('style', "display:none")
 })
-// 
-  // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modalEl) {
-        modal.style.display = "none";
+//Close modal with "off" click
+window.addEventListener('click', function(event){
+    if(event.target == modalEl){
+        modalEl.setAttribute('style', "display:none")
     }
-}
+})
 
 function init(){
     createAllTimeBlocks();

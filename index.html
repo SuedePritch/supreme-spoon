@@ -4,28 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap"
-      rel="stylesheet"
-    />
     <link rel="stylesheet" href="./assets/style.css" />
     <title>Work Day Scheduler</title>
   </head>
 
   <body>
-    <header class="jumbotron">
-      <h1 class="display-1">Work Day Scheduler</h1>
-      <p class="lead">A simple calendar app for scheduling your work day</p>
+    <header class="current-day-container">
       <p id="currentDay" class="lead"></p>
     </header>
     <div class="scheduleContainer">
@@ -33,11 +17,17 @@
     </div>
     <div class="modal" id="myModal">
       <div class="modal-content">
-        <span class="close" id="close">&times;</span>
+        <span id="close-event-container">
+          <svg id="close-event" viewBox="0 0 350 350" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M200 25C200 11.1929 188.807 0 175 0C161.193 0 150 11.1929 150 25V150H25C11.1929 150 0 161.193 0 175C0 188.807 11.1929 200 25 200H150V325C150 338.807 161.193 350 175 350C188.807 350 200 338.807 200 325V200H325C338.807 200 350 188.807 350 175C350 161.193 338.807 150 325 150H200V25Z"/></svg>
+        </span>
         <form id="newEvent">
+          <h3 id="new-event-heading">New Event</h3>
           <input type="text" id="newEventTitle" class="newEventTitle" placeholder="Title">
           <textarea id="newEventDescription" placeholder="Description"></textarea>
         </form>
+        <span id="save-event-container">
+          <svg id="save-event" viewBox="0 0 350 350" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M200 25C200 11.1929 188.807 0 175 0C161.193 0 150 11.1929 150 25V150H25C11.1929 150 0 161.193 0 175C0 188.807 11.1929 200 25 200H150V325C150 338.807 161.193 350 175 350C188.807 350 200 338.807 200 325V200H325C338.807 200 350 188.807 350 175C350 161.193 338.807 150 325 150H200V25Z"/></svg>
+        </span>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
