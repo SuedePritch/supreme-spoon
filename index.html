@@ -28,10 +28,18 @@
       <p class="lead">A simple calendar app for scheduling your work day</p>
       <p id="currentDay" class="lead"></p>
     </header>
-    <div class="container">
+    <div class="scheduleContainer">
       <div id="timeBlockContainer"></div>
     </div>
-
+    <div class="modal" id="myModal">
+      <div class="modal-content">
+        <span class="close" id="close">&times;</span>
+        <form id="newEvent">
+          <input type="text" id="newEventTitle" class="newEventTitle" placeholder="Title">
+          <textarea id="newEventDescription" placeholder="Description"></textarea>
+        </form>
+      </div>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.11.2/dayjs.min.js"></script>
     <script src="./assets/script.js"></script>

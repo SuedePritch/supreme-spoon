@@ -1,19 +1,23 @@
 var currentDayEL = document.getElementById('currentDay')
+var timeBlockContainerEl = document.getElementById('timeBlockContainer')
+var timeBlockEl;
+var modalEl = document.getElementById('myModal')
+var closeModalButtonEl = document.getElementById('close')
 
 //date in main title
 //full 24 hours for testing
 const now = dayjs()
 currentDayEL.textContent = now.format("MMM DD YYYY")
 timeBlockTimes =[
-    dayjs().hour(0).format("H"),
-    dayjs().hour(1).format("H"),
-    dayjs().hour(2).format("H"),
-    dayjs().hour(3).format("H"),
-    dayjs().hour(4).format("H"),
-    dayjs().hour(5).format("H"),
-    dayjs().hour(6).format("H"),
-    dayjs().hour(7).format("H"),
-    dayjs().hour(8).format("H"),
+    // dayjs().hour(0).format("H"),
+    // dayjs().hour(1).format("H"),
+    // dayjs().hour(2).format("H"),
+    // dayjs().hour(3).format("H"),
+    // dayjs().hour(4).format("H"),
+    // dayjs().hour(5).format("H"),
+    // dayjs().hour(6).format("H"),
+    // dayjs().hour(7).format("H"),
+    // dayjs().hour(8).format("H"),
 
     dayjs().hour(9).format("H"),
     dayjs().hour(10).format("H"),
@@ -33,18 +37,38 @@ timeBlockTimes =[
     dayjs().hour(23).format("H")
 ]
 //Create all time blocks
+//each timeBlock contains two sections
+//hourblock shows time
+//eventBlock is the text description
 //Set time for each section
 function createAllTimeBlocks() {
     for (var i = 0; i < timeBlockTimes.length; i++) {
-        var timeBlock = $("<div>");
-        timeBlock.addClass("time-block mb-1");
+        var timeBlock = $("<ul>");
+        var hourBlock = $("<li>");
+        var eventBlock = $("<li>");
+        var saveButtonBlock = $('<li>')
+        var saveButton = $('<img src="./assets/save.svg" height="25px">')
+
+        timeBlock.addClass("time-block");
         timeBlock.attr('id',`timeblock${i}`)
-        timeBlock.attr('data-time',`${i}`)
+        // timeBlock.attr('data-time',`${i}`)
+
+        hourBlock.addClass("hour-block")
+        hourBlock.attr('id', `hour-block${i}`)
+        
+        eventBlock.addClass('event-block')
+        eventBlock.attr('id', `event-block${i}`)
+
         $('#timeBlockContainer').append(timeBlock);
-        document.querySelector(`#timeblock${i}`).textContent = `${timeBlockTimes[i]}`
+        timeBlock.append(hourBlock)
+        timeBlock.append(eventBlock)
+        document.querySelector(`#hour-block${i}`).textContent = `${timeBlockTimes[i]}:00`
+        document.querySelector(`#event-block${i}`).textContent = 'new event'
+
         updatePastPresentFuture(i);
         
     }
+    return timeBlockEl = document.querySelectorAll('.time-block')
 }
 
 //uses iterator variable in createAllTimeBlocks
@@ -60,8 +84,29 @@ function updatePastPresentFuture(i){
         document.querySelector(`#timeblock${i}`).classList.add('past')
     }
 }
+
+timeBlockContainerEl.addEventListener('click', function(event){
+    var element = $(event.target)
+    var timeBlockId= element[0]
+    var eventBlockId = timeBlockId.querySelector('.event-block')
+    console.log(eventBlockId)
+    modalEl.setAttribute('style', 'display:block')
+
+})
+
+closeModalButtonEl.addEventListener('click',  function(){
+    modalEl.setAttribute('style', "display:none")
+})
+// 
+  // When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modalEl) {
+        modal.style.display = "none";
+    }
+}
+
 function init(){
     createAllTimeBlocks();
-
 }
+
 init();
