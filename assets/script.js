@@ -10,7 +10,7 @@ var modalEl = document.getElementById('myModal')
 var closeModalButtonEl = document.getElementById('close-event-container')
 //date in main title
 //full 24 hours for testing
-const now = dayjs().hour(10)
+const now = dayjs()
 currentDayEL.textContent = now.format("dddd MMM DD YYYY")
 timeBlockTimes =[
     // dayjs().hour(0).format("H"),
