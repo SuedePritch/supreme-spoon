@@ -10,18 +10,18 @@ var modalEl = document.getElementById('myModal')
 var closeModalButtonEl = document.getElementById('close-event-container')
 //date in main title
 //full 24 hours for testing
-const now = dayjs()
+const now = dayjs().hour(10)
 currentDayEL.textContent = now.format("dddd MMM DD YYYY")
 timeBlockTimes =[
-    dayjs().hour(0).format("H"),
-    dayjs().hour(1).format("H"),
-    dayjs().hour(2).format("H"),
-    dayjs().hour(3).format("H"),
-    dayjs().hour(4).format("H"),
-    dayjs().hour(5).format("H"),
-    dayjs().hour(6).format("H"),
-    dayjs().hour(7).format("H"),
-    dayjs().hour(8).format("H"),
+    // dayjs().hour(0).format("H"),
+    // dayjs().hour(1).format("H"),
+    // dayjs().hour(2).format("H"),
+    // dayjs().hour(3).format("H"),
+    // dayjs().hour(4).format("H"),
+    // dayjs().hour(5).format("H"),
+    // dayjs().hour(6).format("H"),
+    // dayjs().hour(7).format("H"),
+    // dayjs().hour(8).format("H"),
 
     dayjs().hour(9).format("H"),
     dayjs().hour(10).format("H"),
@@ -32,13 +32,13 @@ timeBlockTimes =[
     dayjs().hour(15).format("H"),
     dayjs().hour(16).format("H"),
     
-    dayjs().hour(17).format("H"),
-    dayjs().hour(18).format("H"),
-    dayjs().hour(19).format("H"),
-    dayjs().hour(20).format("H"),
-    dayjs().hour(21).format("H"),
-    dayjs().hour(22).format("H"),
-    dayjs().hour(23).format("H")
+    // dayjs().hour(17).format("H"),
+    // dayjs().hour(18).format("H"),
+    // dayjs().hour(19).format("H"),
+    // dayjs().hour(20).format("H"),
+    // dayjs().hour(21).format("H"),
+    // dayjs().hour(22).format("H"),
+    // dayjs().hour(23).format("H")
 ]
 //Create all time blocks
 //each timeBlock contains two sections
@@ -78,7 +78,9 @@ function createAllTimeBlocks() {
         
 
         document.querySelector(`#hour-block${i}`).textContent = `${timeBlockTimes[i]}:00`
+
         updatePastPresentFuture(i);
+
     }
     
 }
