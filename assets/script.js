@@ -78,9 +78,7 @@ function createAllTimeBlocks() {
         
 
         document.querySelector(`#hour-block${i}`).textContent = `${timeBlockTimes[i]}:00`
-
         updatePastPresentFuture(i);
-        
     }
     
 }
@@ -88,6 +86,7 @@ function createAllTimeBlocks() {
 //uses iterator variable in createAllTimeBlocks
 //clears pastpresentfuture classes
 //sets class based on relation to current time
+//runs on page load
 function updatePastPresentFuture(i){
     document.querySelector(`#timeblock${i}`).classList.remove('present','future','past')
     if(now.$H == `${timeBlockTimes[i]}`){
@@ -98,6 +97,46 @@ function updatePastPresentFuture(i){
         document.querySelector(`#timeblock${i}`).classList.add('past')
     }
 }
+
+//this function is very tough to test manually TODO: automate testing
+
+//this is ran in setInterval on init()
+//pulls the number portion of the present time block id
+//compares current hour to number in id
+//removes present class and adds past
+//finds next time block and removes future class and adds present
+// function updatePastPresentFutureWhenHourChanges(){
+//     var findPresent = document.querySelector('.present')
+//     var findFutures = document.querySelectorAll('.future')
+//     if(findPresent && findFutures){//Within the workday update
+//         var findPresentId = findPresent.id
+//         var findPresentTimeBlock = findPresentId.slice(9,11)
+//         if(now.$H.toString() !== findPresentTimeBlock){//when present is not in correct timeslot   
+//             findPresent.classList.remove('present')
+//             findPresent.classList.add('past')
+//             findFutures[0].classList.remove('future')
+//             findFutures[0].classList.add('present')
+//             console.log('updated');
+//             }
+//     }else if(findPresent && !findFutures){//end of workday update
+//         if(now.$H.toString() !== findPresentTimeBlock){//when present is not in correct timeslot
+//             findPresent.classList.remove('present')
+//             findPresent.classList.add('past')
+//             console.log('updated end of day');
+//         }
+//     }else if(!findPresent && findFutures){//before workday update
+//         var findFutureId = findFutures[0].id
+//         var findFutureTimeBlock = findFutureId.slice(9,11)
+//         if(now.$H.toString() == findFutureTimeBlock){//updates if present is in workday
+//             findFutures[0].classList.remove('future')
+//             findFutures[0].classList.add('present')
+//             console.log('updated begin of day');
+//         }
+    
+//     }else{
+//         return
+//     }
+// }
 
 
 //displays events from localstorage into specific timeslots
@@ -188,6 +227,7 @@ window.addEventListener('click', function(event){
 function init(){
     createAllTimeBlocks();
     getEventsFromLocalAndUpdate();
+    // setInterval(updatePastPresentFutureWhenHourChanges, 1000)
 }
 
 init();
